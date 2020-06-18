@@ -1,0 +1,15 @@
+{
+  "name": "file-cleanser",
+  "version": "1.0.0",
+  "description": "Utility to delete files past a specified age",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Quinn Kleinfelter",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.3.1"
+  }
+}
