@@ -41,7 +41,12 @@ function cleanFiles(dir, timepassed) {
                     logger.info(filePath + " is older than the configured timepassed")
                 }
                 else if (config.get('mode') == 'deletion') {
-                    fs.unlink(filePath);
+                    fs.unlink(filePath, (err) => {
+                        if (err) {
+                            logger.error(err);
+                            return;
+                        }
+                    });
                     logger.info(filePath +" was deleted because it was older than the configured timepassed")
                 }
             }
