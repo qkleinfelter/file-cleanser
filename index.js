@@ -24,7 +24,7 @@ let getFileModTime = (path) => {
     return stats.mtime;
 };
 
-function cleanFiles(dir, timepassed) {
+function cleanFiles(dir, timepassed, mode) {
     fs.readdir(dir, (err, files) => {
         if (err) {
             console.error("Could not list the directory.", err);
@@ -37,10 +37,10 @@ function cleanFiles(dir, timepassed) {
             if (Date.now() - time > timepassed) {
                 numFiles++;
                 fileSize += fs.statSync(filePath).size;
-                if (config.get('mode') == 'log') {
+                if (mode == 'log') {
                     logger.info(filePath + " is older than the configured timepassed")
                 }
-                else if (config.get('mode') == 'deletion') {
+                else if (mode == 'deletion') {
                     fs.unlink(filePath, (err) => {
                         if (err) {
                             logger.error(err);
@@ -60,8 +60,10 @@ let printStats = () => {
     logger.info(`Those files used ${fileSize / 1024 / 1024 / 1024} Gigabytes of storage`);
 }
 
-let directory = config.get('directory');
-let timepassed = config.get('timepassed');
-logger.log('warn', `BEGIN RUN: MODE=${config.get('mode')}, DIRECTORY=${directory}, TIMEPASSED=${timepassed}`)
-cleanFiles(directory, timepassed);
+let runtimes = config.get('runtimes');
+for (const runtime of runtimes) {
+    logger.log('warn', `BEGIN RUN: MODE=${runtime.mode}, DIRECTORY=${runtime.directory}, TIMEPASSED=${runtime.timepassed}`)
+    cleanFiles(runtime.directory, runtime.timepassed, runtime.mode);
+}
 setTimeout(printStats, 1000);
+

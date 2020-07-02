@@ -1,5 +1,15 @@
+
 {
-    "directory": "",
-    "timepassed": "",
-    "mode": ""
+    "runtimes":[
+        {
+            "directory": "",
+            "timepassed": "",
+            "mode": ""
+        },
+        {
+            "directory": "",
+            "timepassed": "",
+            "mode": ""
+        }
+    ]
 }
