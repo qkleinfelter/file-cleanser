@@ -10,7 +10,7 @@
   "author": "Quinn Kleinfelter",
   "license": "MIT",
   "dependencies": {
-    "config": "^3.3.1",
-    "winston": "^3.2.1"
+    "config": "^3.3.2",
+    "winston": "^3.3.3"
   }
 }
