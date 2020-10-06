@@ -25,6 +25,11 @@ function getFileModTime(path) {
 };
 
 function cleanFiles(dir, timepassed, mode) {
+    if (mode !== "log" && mode !== "deletion") {
+        logger.error('A valid mode is not specified in the configuration. Valid modes: deletion, log')
+        return;
+    }
+
     fs.readdir(dir, (err, files) => {
         if (err) {
             console.error("Could not list the directory.", err);
