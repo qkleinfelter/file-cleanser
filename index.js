@@ -1,4 +1,4 @@
-let fs = require('fs');
+const fs = require('fs');
 const config = require('config');
 const winston = require('winston');
 
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
 let numFiles = 0;
 let fileSize = 0;
 
-let getFileModTime = (path) => {
+function getFileModTime(path) {
     const stats = fs.statSync(path);
     return stats.mtime;
 };
@@ -47,10 +47,10 @@ function cleanFiles(dir, timepassed, mode) {
                             return;
                         }
                     });
-                    logger.info(filePath +" was deleted because it was older than the configured timepassed")
+                    logger.info(filePath + " was deleted because it was older than the configured timepassed")
                 }
             }
-            
+
         }
     })
 }
