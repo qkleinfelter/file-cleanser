@@ -24,7 +24,7 @@ function getFileModTime(path) {
     return stats.mtime;
 };
 
-function cleanFiles(dir, timepassed, mode) {
+function cleanFiles(dir, timePassed, mode) {
     if (mode !== "log" && mode !== "deletion") {
         logger.error('A valid mode is not specified in the configuration. Valid modes: deletion, log')
         return;
@@ -39,11 +39,11 @@ function cleanFiles(dir, timepassed, mode) {
         for (const file of files) {
             const filePath = dir + "\\" + file;
             const time = new Date(getFileModTime(filePath)).getTime();
-            if (Date.now() - time > timepassed) {
+            if (Date.now() - time > timePassed) {
                 numFiles++;
                 fileSize += fs.statSync(filePath).size;
                 if (mode == 'log') {
-                    logger.info(filePath + " is older than the configured timepassed")
+                    logger.info(filePath + " is older than the configured timePassed")
                 }
                 else if (mode == 'deletion') {
                     fs.unlink(filePath, (err) => {
@@ -52,7 +52,7 @@ function cleanFiles(dir, timepassed, mode) {
                             return;
                         }
                     });
-                    logger.info(filePath + " was deleted because it was older than the configured timepassed")
+                    logger.info(filePath + " was deleted because it was older than the configured timePassed")
                 }
             }
 
@@ -67,8 +67,8 @@ let printStats = () => {
 
 let runtimes = config.get('runtimes');
 for (const runtime of runtimes) {
-    logger.log('warn', `BEGIN RUN: MODE=${runtime.mode}, DIRECTORY=${runtime.directory}, TIMEPASSED=${runtime.timepassed}`)
-    cleanFiles(runtime.directory, runtime.timepassed, runtime.mode);
+    logger.log('warn', `BEGIN RUN: MODE=${runtime.mode}, DIRECTORY=${runtime.directory}, TIMEPASSED=${runtime.timePassed}`)
+    cleanFiles(runtime.directory, runtime.timePassed, runtime.mode);
 }
 setTimeout(printStats, 1000);
 
