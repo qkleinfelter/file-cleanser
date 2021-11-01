@@ -15,7 +15,7 @@ let fileSize = 0;
 function getFileModTime(path) {
     const stats = fs.statSync(path);
     return stats.mtime;
-};
+}
 
 function cleanFiles(dir, timePassed, mode) {
     if (mode !== "log" && mode !== "deletion") {
