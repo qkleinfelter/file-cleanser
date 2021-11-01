@@ -1,5 +1,5 @@
 const logger = require('./logger');
 
-test('adds 1 + 2 to equal 3', () => {
+test('expects logger level to be info', () => {
     expect(logger.level).toBe('info');
 });
