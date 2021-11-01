@@ -1,7 +1,8 @@
 const fs = require('fs');
 const config = require('config');
 const winston = require('winston');
-const logger = require('./logger')
+const logger = require('./logger');
+const Duration = require('duration-js');
 
 if (process.env.NODE_ENV !== 'production') {
     logger.add(new winston.transports.Console({
@@ -50,18 +51,20 @@ function cleanFiles(dir, timePassed, mode) {
             }
 
         }
-    })
+    });
 }
 
 let printStats = () => {
     logger.info(`We encountered ${numFiles} files that were passed the specified time limit`);
     logger.info(`Those files used ${fileSize / 1024 / 1024 / 1024} Gigabytes of storage`);
-}
+};
 
 let runtimes = config.get('runtimes');
 for (const runtime of runtimes) {
-    logger.log('warn', `BEGIN RUN: MODE=${runtime.mode}, DIRECTORY=${runtime.directory}, TIMEPASSED=${runtime.timePassed}`)
-    cleanFiles(runtime.directory, runtime.timePassed, runtime.mode);
+    const timePassed = runtime.timePassed;
+    const duration = new Duration(timePassed);
+    logger.log('warn', `BEGIN RUN: MODE=${runtime.mode}, DIRECTORY=${runtime.directory}, TIMEPASSED=${duration}`);
+    cleanFiles(runtime.directory, duration.milliseconds(), runtime.mode);
 }
 setTimeout(printStats, 1000);
 
