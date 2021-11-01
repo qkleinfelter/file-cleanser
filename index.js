@@ -1,14 +1,7 @@
 const fs = require('fs');
 const config = require('config');
 const winston = require('winston');
-
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.File({ filename: 'app.log' })
-    ]
-})
+const logger = require('./logger')
 
 if (process.env.NODE_ENV !== 'production') {
     logger.add(new winston.transports.Console({
