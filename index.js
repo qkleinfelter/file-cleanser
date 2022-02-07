@@ -1,8 +1,8 @@
-const fs = require("fs");
-const config = require("config");
-const winston = require("winston");
-const logger = require("./logger");
-const Duration = require("duration-js");
+import fs from "fs";
+import config from "config";
+import winston from "winston";
+import logger from "./logger.js";
+import Duration from "duration-js";
 
 if (process.env.NODE_ENV !== "production") {
   logger.add(

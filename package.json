@@ -2,6 +2,7 @@
   "name": "file-cleanser",
   "version": "1.0.0",
   "description": "Utility to delete files past a specified age",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "lint": "eslint",
