@@ -15,12 +15,12 @@ if (process.env.NODE_ENV !== "production") {
 let numFiles = 0;
 let fileSize = 0;
 
-function getFileModTime(path) {
+let getFileModTime = (path) => {
   const stats = fs.statSync(path);
   return stats.mtime;
-}
+};
 
-function cleanFiles(dir, timePassed, mode) {
+let cleanFiles = (dir, timePassed, mode) => {
   if (mode !== "log" && mode !== "deletion") {
     logger.error(
       "A valid mode is not specified in the configuration. Valid modes: deletion, log"
@@ -57,15 +57,17 @@ function cleanFiles(dir, timePassed, mode) {
       }
     }
   });
-}
+};
 
 let printStats = () => {
   logger.info(
     `We encountered ${numFiles} files that were passed the specified time limit`
   );
-  logger.info(
-    `Those files used ${fileSize / 1024 / 1024 / 1024} Gigabytes of storage`
-  );
+  logger.info(`Those files used ${toGB(fileSize)} Gigabytes of storage`);
+};
+
+let toGB = (size) => {
+  return size / 1024 / 1024 / 1024;
 };
 
 let runtimes = config.get("runtimes");
@@ -74,7 +76,9 @@ for (const runtime of runtimes) {
   const duration = new Duration(timePassed);
   logger.log(
     "warn",
-    `BEGIN RUN: MODE=${runtime.mode}, DIRECTORY=${runtime.directory}, TIMEPASSED=${duration}`
+    `${new Date().toLocaleString()}: BEGIN RUN: MODE=${
+      runtime.mode
+    }, DIRECTORY=${runtime.directory}, TIMEPASSED=${duration}`
   );
   cleanFiles(runtime.directory, duration.milliseconds(), runtime.mode);
 }
