@@ -12,7 +12,7 @@
   "author": "Quinn Kleinfelter",
   "license": "MIT",
   "dependencies": {
-    "config": "^3.3.9",
+    "config": "^3.3.10",
     "duration-js": "^4.0.0",
     "winston": "^3.11.0"
   },
